@@ -1,5 +1,5 @@
 <h1 align="center">Kex</h1>
-<p align="center">A simple cryptographic API to learn and understand REST API's and essential cyber security concepts</p>
+<p align="center">A simple cryptographic RESTful API that provides powerful hashing and encryption through simple endpoints</p>
 
 ---
 
@@ -65,6 +65,41 @@ Returns the currently supported cryptographic algorithms.
   "encoding": [
     "Base64"
   ]
+}
+```
+
+### 3. POST /api/v1/hash/sha256
+Sends a text and returns the algorithm type and encrypted SHA-256 hash
+
+- Input
+```json
+{
+    "text: Hello World"
+}
+```
+- Output
+```json
+{
+    "algorithm": "SHA-256",
+    "hash": "a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e"
+}
+```
+
+### 4. POST /api/v1/hash/sha512
+Sends a text and returns the algorithm type and encrypted SHA-512 hash
+
+- Input
+```json
+{
+    "text: Hello World"
+}
+```
+- Output
+```json
+{
+    "algorithm": "SHA-512",
+    "hash": "2c74fd17edafd80e8447b0d46741ee243b7eb74dd2149a0ab1b9246fb30382f27e853d8585719e0e67cbda0daa8f516710
+    64615d645ae27acb15bfb1447f459b"
 }
 ```
 ## Project Structure
