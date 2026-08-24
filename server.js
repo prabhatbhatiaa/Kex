@@ -24,6 +24,11 @@ app.get("/api/v1/algorithms", (req,res) => {
 // SHA-256 hashing endpoint
 app.post("/api/v1/hash/sha256", (req,res) => {
     const text = req.body.text;
+    if (typeof text !== "string" || text.length === 0) {
+        return res.status(400).json({
+            error: "Text is required and should be a non empty string"
+        });
+    } 
     const hash = crypto
                 .createHash("sha256")
                 .update(text)
