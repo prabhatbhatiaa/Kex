@@ -1,5 +1,7 @@
 const express = require('express');
+const crypto = require('crypto');
 const app = express();
+app.use(express.json());
 const PORT=3000;
 
 // First endpoint
@@ -19,6 +21,20 @@ app.get("/api/v1/algorithms", (req,res) => {
     });
 });
 
+// SHA-256 hashing endpoint
+app.post("/api/v1/hash/sha256", (req,res) => {
+    const text = req.body.text;
+    const hash = crypto
+                .createHash("sha256")
+                .update(text)
+                .digest("hex");
+
+    res.json({
+        algorithm: "SHA-256",
+        hash: hash
+    })
+})
+
 app.listen(PORT, () => {
-    console.log(`Kex API running on port ${PORT}`)
+    console.log(`Kex API is running on port ${PORT}`)
 })
