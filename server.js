@@ -1,5 +1,7 @@
 const express = require('express');
 const crypto = require('crypto');
+const validateText = require("./src/middleware/validateText.js");
+
 const app = express();
 app.use(express.json());
 const PORT=3000;
@@ -22,13 +24,8 @@ app.get("/api/v1/algorithms", (req,res) => {
 });
 
 // SHA-256 hashing endpoint
-app.post("/api/v1/hash/sha256", (req,res) => {
+app.post("/api/v1/hash/sha256", validateText, (req,res) => {
     const text = req.body.text;
-    if (typeof text !== "string" || text.length === 0) {
-        return res.status(400).json({
-            error: "Text is required and should be a non empty string"
-        });
-    } 
     const hash = crypto
                 .createHash("sha256")
                 .update(text)
@@ -41,13 +38,8 @@ app.post("/api/v1/hash/sha256", (req,res) => {
 })
 
 // SHA-512 hashing endpoint [based on SHA256]
-app.post("/api/v1/hash/sha512", (req,res) => {
+app.post("/api/v1/hash/sha512", validateText, (req,res) => {
     const text =  req.body.text;
-    if (typeof text !== "string" || text.length === 0) {
-        return res.status(400).json({
-            error: "Text is required and should be a non empty string"
-        });
-    }
     const hash = crypto
                 .createHash("sha512")
                 .update(text)
