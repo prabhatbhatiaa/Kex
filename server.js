@@ -1,6 +1,6 @@
 const express = require('express');
-const crypto = require('crypto');
-const validateText = require("./src/middleware/validateText.js");
+
+const hashRoutes = require("./src/routes/hashRoutes.js");
 
 const app = express();
 app.use(express.json());
@@ -23,33 +23,8 @@ app.get("/api/v1/algorithms", (req,res) => {
     });
 });
 
-// SHA-256 hashing endpoint
-app.post("/api/v1/hash/sha256", validateText, (req,res) => {
-    const text = req.body.text;
-    const hash = crypto
-                .createHash("sha256")
-                .update(text)
-                .digest("hex");
-
-    res.json({
-        algorithm: "SHA-256",
-        hash: hash
-    })
-})
-
-// SHA-512 hashing endpoint [based on SHA256]
-app.post("/api/v1/hash/sha512", validateText, (req,res) => {
-    const text =  req.body.text;
-    const hash = crypto
-                .createHash("sha512")
-                .update(text)
-                .digest("hex");
-    
-    res.json({
-        algorithm: "SHA-512",
-        hash: hash
-    })
-})
+// Router for hashing endpoints
+app.use("/api/v1/hash", hashRoutes);
 
 app.listen(PORT, () => {
     console.log(`Kex API is running on port ${PORT}`)
