@@ -4,7 +4,7 @@ const hashRoutes = require("./src/routes/hashRoutes.js");
 
 const app = express();
 app.use(express.json());
-const PORT=3000;
+const PORT = 5050;
 
 // First endpoint
 app.get('/', (req,res) => {
